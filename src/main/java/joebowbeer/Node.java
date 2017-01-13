@@ -11,33 +11,31 @@ public class Node<T> {
   }
 
   /**
-   * Converts binary tree to doubly-linked list.
-   * @param <T> type of data
-   * @param n root of tree
+   * Converts binary tree rooted at this node to a doubly-linked list of nodes in infix order.
    * @return head of doubly-linked list
    */
-  public static <T> Node<T> convert(Node<T> n) {
+  public Node<T> convert() {
     Node<T> head;
-    if (n.left != null) {
+    if (left != null) {
       // convert left subtree
-      head = convert(n.left);
+      head = left.convert();
       // attach this node to rightmost in left subtree
-      n.left = head.left;
-      head.left.right = n;
+      left = head.left;
+      head.left.right = this;
     } else {
-      head = n;
+      head = this;
     }
 
     Node<T> tail;
-    if (n.right != null) {
+    if (right != null) {
       // convert right subtree
-      Node<T> next = convert(n.right);
+      Node<T> next = right.convert();
       tail = next.left;
       // attach this node to leftmost in right subtree
-      n.right = next;
-      next.left = n;
+      right = next;
+      next.left = this;
     } else {
-      tail = n;
+      tail = this;
     }
 
     // link head and tail

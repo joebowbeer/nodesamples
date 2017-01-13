@@ -12,37 +12,35 @@ public class NodeTest {
   @Test
   public void testConvert() {
     System.out.println("convert");
-    verifyLinkedList(makeList(0), Node.convert(makeTree(0)));
-    verifyLinkedList(makeList(1), Node.convert(makeTree(0, null, makeTree(1))));
-    verifyLinkedList(makeList(1), Node.convert(makeTree(1, makeTree(0), null)));
-    verifyLinkedList(makeList(2), Node.convert(makeTree(0, null, makeTree(1, null, makeTree(2)))));
-    verifyLinkedList(makeList(2), Node.convert(makeTree(0, null, makeTree(2, makeTree(1), null))));
-    verifyLinkedList(makeList(2), Node.convert(makeTree(1, makeTree(0), makeTree(2))));
-    verifyLinkedList(makeList(2), Node.convert(makeTree(2, makeTree(1, makeTree(0), null), null)));
-    verifyLinkedList(makeList(2), Node.convert(makeTree(2, makeTree(0, null, makeTree(1)), null)));
+    verifyLinkedList(makeList(0), makeTree(0).convert());
+    verifyLinkedList(makeList(1), makeTree(0, null, makeTree(1)).convert());
+    verifyLinkedList(makeList(1), makeTree(1, makeTree(0), null).convert());
+    verifyLinkedList(makeList(2), makeTree(0, null, makeTree(1, null, makeTree(2))).convert());
+    verifyLinkedList(makeList(2), makeTree(0, null, makeTree(2, makeTree(1), null)).convert());
+    verifyLinkedList(makeList(2), makeTree(1, makeTree(0), makeTree(2)).convert());
+    verifyLinkedList(makeList(2), makeTree(2, makeTree(1, makeTree(0), null), null).convert());
+    verifyLinkedList(makeList(2), makeTree(2, makeTree(0, null, makeTree(1)), null).convert());
   }
 
   /* Helper methods */
 
   private static <T> void verifyLinkedList(List<T> expectedValues, Node<T> linkedList) {
-    assertEquals(expectedValues, traverseLinkedList(linkedList, new ArrayList<>()));
+    assertEquals(expectedValues, collectValues(linkedList));
   }
 
   /**
-   * Copies data from the given linked list of nodes to the given list.
-   * @param <T> type of data
+   * Returns list of data from the given doubly-linked list of nodes.
+   * @param <T> type of node data
    * @param head head of doubly-linked list
-   * @param list list of data
    * @return list of data
    */
-  private static <T> List<T> traverseLinkedList(Node<T> head, List<T> list) {
-    if (head != null) {
-      Node<T> n = head;
-      do {
-        list.add(n.data);
-        n = n.right;
-      } while (n != head);
-    }
+  private static <T> List<T> collectValues(Node<T> head) {
+    List<T> list = new ArrayList<>();
+    Node<T> n = head;
+    do {
+      list.add(n.data);
+      n = n.right;
+    } while (n != head);
     return list;
   }
 
