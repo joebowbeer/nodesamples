@@ -20,8 +20,7 @@ public class Node<T> {
       // convert left subtree
       head = left.convert();
       // attach this node to rightmost in left subtree
-      left = head.left;
-      head.left.right = this;
+      attach(head.left, this);
     } else {
       head = this;
     }
@@ -32,16 +31,19 @@ public class Node<T> {
       Node<T> next = right.convert();
       tail = next.left;
       // attach this node to leftmost in right subtree
-      right = next;
-      next.left = this;
+      attach(this, next);
     } else {
       tail = this;
     }
 
-    // link head and tail
-    head.left = tail;
-    tail.right = head;
+    // attach tail to head
+    attach(tail, head);
     
     return head;
+  }
+
+  private static void attach(Node prev, Node next) {
+    prev.right = next;
+    next.left = prev;
   }
 }
