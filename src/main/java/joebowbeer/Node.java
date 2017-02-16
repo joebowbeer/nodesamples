@@ -42,7 +42,7 @@ public class Node<T> {
     return head;
   }
 
-  private static void attach(Node prev, Node next) {
+  private static <T> void attach(Node<T> prev, Node<T> next) {
     prev.right = next;
     next.left = prev;
   }
