@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
 public class NodeTest {
@@ -25,7 +26,7 @@ public class NodeTest {
   /* Helper methods */
 
   private static <T> void verifyLinkedList(List<T> expectedValues, Node<T> linkedList) {
-    assertEquals(expectedValues, collectValues(linkedList));
+    assertThat(collectValues(linkedList), is(expectedValues));
   }
 
   /**
